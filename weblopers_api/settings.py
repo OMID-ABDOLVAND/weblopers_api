@@ -9,13 +9,13 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import os
 from pathlib import Path
-import environ
-env = environ.Env()
-environ.Env.read_env()
+from environ import Env
+env = Env()
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
+env_file = os.path.join(BASE_DIR, '.env')
+env.read_env(env_file)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -80,11 +80,11 @@ WSGI_APPLICATION = 'weblopers_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env['POSTGRES_DB'],
-        'USER': env['POSTGRES_USER'],
-        'HOST': env['POSTGRES_HOST'],
-        'PORT': env['POSTGRES_PORT'],
-        'PASSWORD': env['POSTGRES_PASSWORD'],
+        'NAME': env.str('POSTGRES_DB'),
+        'USER': env.str('POSTGRES_USER'),
+        'HOST': env.str('POSTGRES_HOST'),
+        'PORT': env.str('POSTGRES_PORT'),
+        'PASSWORD': env.str('POSTGRES_PASSWORD'),
     }
 }
 
