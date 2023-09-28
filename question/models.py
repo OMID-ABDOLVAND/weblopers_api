@@ -23,7 +23,7 @@ class Question(TimeBasedModel, models.Model):
     image = models.ImageField()
     deadline = models.DateTimeField()
     tags = TaggableManager()
-    fields = models.ManyToManyField(Field, related_name='questions_fields')
+    questions_fields = models.ManyToManyField(Field, related_name='questions_fields')
     status = models.CharField(max_length=20, choices=StatusChoices.choices, default=StatusChoices.OPEN)
 
     def __str__(self):
